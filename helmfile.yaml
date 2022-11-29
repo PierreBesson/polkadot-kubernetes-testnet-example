@@ -3,20 +3,21 @@ repositories:
     url: https://paritytech.github.io/helm-charts/
 
 helmDefaults:
-  createNamespace: false
+  createNamespace: true
   waitForJobs: true
 
 releases:
+
 ## relay chain Rococo ##
   - name: validator-alice
     namespace: rococo
     chart: parity/node
-    version: 4.2.3
+    version: 4.2.5
     values:
       - node:
           chain: rococo-local
           replicas: 1
-          customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+          #customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
           role: authority
           allowUnsafeRpcMethods: true
           customNodeKey: "91cb59d86820419075b08e3043cd802ba3506388d8b161d2d4acd203af5194c1"
@@ -30,17 +31,16 @@ releases:
   - name: validator-bob
     namespace: rococo
     chart: parity/node
-    version: 4.2.3
+    version: 4.2.5
     values:
       - node:
           chain: rococo-local
-          customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+          #customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
           role: authority
           allowUnsafeRpcMethods: true
           replicas: 1
           flags:
             - "--bob --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
-          chainKeystore:
         extraLabels:
           validatorAccount: "5HpG9w8EBLe5XCrbczpwq5TSXvedjrBGCwqxK1iQ7qUsSWFc" # Bob address
           ss58Format: "0"
@@ -49,7 +49,7 @@ releases:
   - name: alice-2k
     namespace: rococo
     chart: parity/node
-    version: 4.2.3
+    version: 4.2.5
     values:
       - image:
           repository: "ddorgan/execute-xcm-parachain"
@@ -75,7 +75,7 @@ releases:
   - name: alice-3k
     namespace: rococo
     chart: parity/node
-    version: 4.2.3
+    version: 4.2.5
     values:
       - image:
           repository: "ddorgan/execute-xcm-parachain"
@@ -104,4 +104,13 @@ releases:
     chart: parity/testnet-manager
     version: 1.1.1
     values:
-      - ./values-testnet-manager.yml
+      - configmap:
+          WS_ENDPOINT: "ws://validator-alice-node-0.rococo:9944"
+          NODE_HTTP_PATTERN: "http://NODE_NAME.rococo:9933"
+          NODE_WS_PATTERN: "ws://NODE_NAME.rococo:9944"
+          HEALTHY_MIN_PEER_COUNT: "1"
+          LOG_LEVEL: DEBUG
+
+        secret:
+          SUDO_SEED: "0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a" # Alice
+          VALIDATORS_ROOT_SEED: "test test test test test test test test test test test test"
