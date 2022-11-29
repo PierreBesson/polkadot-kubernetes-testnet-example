@@ -16,12 +16,17 @@ releases:
       - node:
           chain: rococo-local
           replicas: 1
-          customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
           role: authority
           allowUnsafeRpcMethods: true
           customNodeKey: "91cb59d86820419075b08e3043cd802ba3506388d8b161d2d4acd203af5194c1"
-          flags:
-            - "--alice"
+          keys:
+            - type: "gran"
+              scheme: "ed25519"
+              seed: "//Alice//gran"
+            - type: "babe"
+              scheme: "sr25519"
+              seed: "//Alice"
+              extraDerivation: //babe
           ss58Format: "0"
         extraLabels:
           validatorAccount: "5GNJqTPyNqANBkUVMN1LPPrxXnFouWXoe2wNSmmEoLctxiZY" # Alice address
@@ -34,12 +39,19 @@ releases:
     values:
       - node:
           chain: rococo-local
-          customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
           role: authority
           allowUnsafeRpcMethods: true
           replicas: 1
+          keys:
+            - type: "gran"
+              scheme: "ed25519"
+              seed: "//Bob//gran"
+            - type: "babe"
+              scheme: "sr25519"
+              seed: "//Bob"
+              extraDerivation: //babe
           flags:
-            - "--bob --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
+            - "--bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
           chainKeystore:
         extraLabels:
           validatorAccount: "5HpG9w8EBLe5XCrbczpwq5TSXvedjrBGCwqxK1iQ7qUsSWFc" # Bob address
@@ -63,7 +75,7 @@ releases:
           collatorRelayChain:
             flags:
               - "--execution wasm --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
-            customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+            chain: rococo-local
           flags:
             - "--alice"
             - "--force-authoring"
