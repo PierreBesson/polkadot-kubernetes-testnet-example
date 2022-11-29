@@ -19,6 +19,7 @@ releases:
           replicas: 1
           role: authority
           allowUnsafeRpcMethods: true
+          customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec-raw.json"
           customNodeKey: "91cb59d86820419075b08e3043cd802ba3506388d8b161d2d4acd203af5194c1"
           flags:
             - "--alice"
@@ -35,6 +36,7 @@ releases:
       - node:
           chain: rococo-local
           role: authority
+          customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec-raw.json"
           allowUnsafeRpcMethods: true
           replicas: 1
           flags:
@@ -51,6 +53,7 @@ releases:
       - node:
           chain: rococo-local
           role: authority
+          customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec-raw.json"
           allowUnsafeRpcMethods: true
           replicas: 1
           flags:
@@ -77,7 +80,7 @@ releases:
             flags:
               - "--bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
               - "--execution wasm --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
-            customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec.json"
+            customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec-raw.json"
           flags:
             - "--alice"
             - "--force-authoring"
@@ -104,7 +107,7 @@ releases:
             flags:
               - "--bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
               - "--execution wasm --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
-            customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec.json"
+            customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec-raw.json"
           flags:
             - "--alice"
             - "--force-authoring"
