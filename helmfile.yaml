@@ -54,7 +54,7 @@ releases:
           allowUnsafeRpcMethods: true
           replicas: 1
           flags:
-            - "--bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
+            - "--bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
         extraLabels:
           ss58Format: "0"
  
@@ -75,8 +75,9 @@ releases:
           isParachain: true
           collatorRelayChain:
             flags:
+              - "--bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
               - "--execution wasm --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
-            customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+            customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec.json"
           flags:
             - "--alice"
             - "--force-authoring"
@@ -101,8 +102,9 @@ releases:
           isParachain: true
           collatorRelayChain:
             flags:
+              - "--bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
               - "--execution wasm --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
-            customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+            customChainspecUrl: "https://raw.githubusercontent.com/PierreBesson/polkadot-kubernetes-testnet-example/main/rococo-local-chainspec.json"
           flags:
             - "--alice"
             - "--force-authoring"
