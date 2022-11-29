@@ -1,0 +1,107 @@
+repositories:
+  - name: parity
+    url: https://paritytech.github.io/helm-charts/
+
+helmDefaults:
+  createNamespace: false
+  waitForJobs: true
+
+releases:
+## relay chain Rococo ##
+  - name: validator-alice
+    namespace: rococo
+    chart: parity/node
+    version: 4.2.3
+    values:
+      - node:
+          chain: rococo-local
+          replicas: 1
+          customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+          role: authority
+          allowUnsafeRpcMethods: true
+          customNodeKey: "91cb59d86820419075b08e3043cd802ba3506388d8b161d2d4acd203af5194c1"
+          flags:
+            - "--alice"
+          ss58Format: "0"
+        extraLabels:
+          validatorAccount: "5GNJqTPyNqANBkUVMN1LPPrxXnFouWXoe2wNSmmEoLctxiZY" # Alice address
+          ss58Format: "0"
+       
+  - name: validator-bob
+    namespace: rococo
+    chart: parity/node
+    version: 4.2.3
+    values:
+      - node:
+          chain: rococo-local
+          customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+          role: authority
+          allowUnsafeRpcMethods: true
+          replicas: 1
+          flags:
+            - "--bob --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
+          chainKeystore:
+        extraLabels:
+          validatorAccount: "5HpG9w8EBLe5XCrbczpwq5TSXvedjrBGCwqxK1iQ7qUsSWFc" # Bob address
+          ss58Format: "0"
+ 
+## Para chain 2k ##
+  - name: alice-2k
+    namespace: rococo
+    chart: parity/node
+    version: 4.2.3
+    values:
+      - image:
+          repository: "ddorgan/execute-xcm-parachain"
+          tag: "latest"
+      - node:
+          role: collator
+          chain: "2k"
+          command: "/usr/local/bin/parachain-template-node"
+          allowUnsafeRpcMethods: true
+          isParachain: true
+          collatorRelayChain:
+            flags:
+              - "--execution wasm --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
+            customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+          flags:
+            - "--alice"
+            - "--force-authoring"
+        extraLabels:
+          paraId: "2000"
+          ss58Format: "0"
+
+ ## Para chain 3k ##
+  - name: alice-3k
+    namespace: rococo
+    chart: parity/node
+    version: 4.2.3
+    values:
+      - image:
+          repository: "ddorgan/execute-xcm-parachain"
+          tag: "latest"
+      - node:
+          role: collator
+          chain: "3k"
+          command: "/usr/local/bin/parachain-template-node"
+          allowUnsafeRpcMethods: true
+          isParachain: true
+          collatorRelayChain:
+            flags:
+              - "--execution wasm --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
+            customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
+          flags:
+            - "--alice"
+            - "--force-authoring"
+           
+        extraLabels:
+          paraId: "3000"
+          ss58Format: "0"
+
+## testnet-manager ##
+  - name: testnet-manager
+    namespace: rococo
+    chart: parity/testnet-manager
+    version: 1.1.1
+    values:
+      - ./values-testnet-manager.yml
