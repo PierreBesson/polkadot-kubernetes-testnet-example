@@ -17,7 +17,6 @@ releases:
       - node:
           chain: rococo-local
           replicas: 1
-          #customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
           role: authority
           allowUnsafeRpcMethods: true
           customNodeKey: "91cb59d86820419075b08e3043cd802ba3506388d8b161d2d4acd203af5194c1"
@@ -35,7 +34,6 @@ releases:
     values:
       - node:
           chain: rococo-local
-          #customChainspecUrl: "http://chainspec.rococo/rococo-local.json"
           role: authority
           allowUnsafeRpcMethods: true
           replicas: 1
@@ -43,6 +41,21 @@ releases:
             - "--bob --bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC" 
         extraLabels:
           validatorAccount: "5HpG9w8EBLe5XCrbczpwq5TSXvedjrBGCwqxK1iQ7qUsSWFc" # Bob address
+          ss58Format: "0"
+
+  - name: validator-pool
+    namespace: rococo
+    chart: parity/node
+    version: 4.2.5
+    values:
+      - node:
+          chain: rococo-local
+          role: authority
+          allowUnsafeRpcMethods: true
+          replicas: 1
+          flags:
+            - "--bootnodes /dns4/validator-alice-node-0/tcp/30333/p2p/12D3KooWMeR4iQLRBNq87ViDf9W7f6cc9ydAPJgmq48rAH116WoC"
+        extraLabels:
           ss58Format: "0"
  
 ## Para chain 2k ##
@@ -113,4 +126,4 @@ releases:
 
         secret:
           SUDO_SEED: "0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a" # Alice
-          VALIDATORS_ROOT_SEED: "test test test test test test test test test test test test"
+          VALIDATORS_ROOT_SEED: "test test test test test test test test test test test junk"
