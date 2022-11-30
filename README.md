@@ -57,3 +57,8 @@ See ```assets.Issued``` to ```Charlie``` on parachain 3k.
 Resources:
 
 - [Kubernetes section of the Substrate Devops Guide](https://paritytech.github.io/devops-guide/kubernetes/index.html)
+
+Notes:
+
+- `rococo-local-chainspec.json` was generated with: `polkadot build-spec --chain rococo-local > rococo-local-chainspec.json`
+- `rococo-local-chainspec.json` was generated with: `polkadot build-spec --chain rococo-local-chainspec.json --raw > rococo-local-chainspec-raw.json`
